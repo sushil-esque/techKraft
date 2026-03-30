@@ -11,6 +11,7 @@ import passport from "passport";
 
 
 const app = express();
+app.set("trust proxy", 1); 
 
 // Global Middlewares
 app.use(express.json());
