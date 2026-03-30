@@ -51,7 +51,7 @@ app.use(passport.session());
 
 // Health check
 app.get("/health", (req, res) => {
-  res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
+  res.send("hello world");
 });
 
 // Routes
