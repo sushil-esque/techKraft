@@ -3,11 +3,11 @@ import { Strategy as LocalStrategy } from "passport-local";
 import prisma from "../config/prisma.js";
 import bcrypt from "bcrypt";
 
-passport.serializeUser((user: Express.User, done) => {
+passport.serializeUser((user: Express.User, done: (err: Error | null, id?: number) => void) => {
   done(null, user.id);
 });
 
-passport.deserializeUser(async (id: number, done) => {
+passport.deserializeUser(async (id: number, done: (err: Error | null, user?: Express.User | false | null) => void) => {
   try {
     const user = await prisma.user.findUnique({
       where: { id },
@@ -20,7 +20,7 @@ passport.deserializeUser(async (id: number, done) => {
     });
     done(null, user);
   } catch (error) {
-    done(error);
+    done(error as Error);
   }
 });
 
@@ -30,7 +30,7 @@ export default passport.use(
       usernameField: "email",
       passwordField: "password",
     },
-    async (email, password, done) => {
+    async (email: string, password: string, done: (error: Error | null, user?: Express.User | false, options?: { message: string }) => void) => {
       try {
         const user = await prisma.user.findUnique({
           where: { email },
@@ -45,7 +45,7 @@ export default passport.use(
         const { password: _, ...userWithoutPassword } = user;
         return done(null, userWithoutPassword);
       } catch (error) {
-        return done(error);
+        return done(error as Error);
       }
     },
   ),
