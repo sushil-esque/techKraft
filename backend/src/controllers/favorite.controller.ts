@@ -20,8 +20,12 @@ export const toggleFavorite = catchAsync( async(req:Request,res:Response)=>{
 export const getFavorites = catchAsync(async(req:Request, res:Response)=>{
     const userId = req.user!.id
     const favorites = await favoriteService.getFavorites(userId)
+    const favRes = favorites.map((favorite) => ({
+        ...favorite.property,
+        isFavorite: true,
+    }));
      res.status(200).json({
         status: "success",
-        data: favorites
+        data: favRes
     })
 })

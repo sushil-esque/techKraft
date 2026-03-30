@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express from "express";
 import type { Request, Response, NextFunction } from "express";
 import mainRouter from "./routes/index.js";
@@ -13,9 +14,16 @@ const app = express();
 
 // Global Middlewares
 app.use(express.json());
+
+const frontendUrl = process.env.CLIENT_URL || "http://localhost:5173";
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:3000",
+  frontendUrl.replace(/\/$/, ""),
+];
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: allowedOrigins,
     credentials: true,
   }), 
 );

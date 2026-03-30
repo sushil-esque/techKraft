@@ -34,6 +34,24 @@ async function main() {
       price: 950000,
       location: "Arts District",
     },
+    {
+      title: "Mountain Retreat",
+      description: "A peaceful cabin nestled in the mountains with stunning views.",
+      price: 620000,
+      location: "Pine Ridge",
+    },
+    {
+      title: "Urban Studio",
+      description: "A compact and stylish studio in the heart of the city.",
+      price: 320000,
+      location: "Midtown",
+    },
+    {
+      title: "Lakeside Manor",
+      description: "An elegant estate with a private dock and lake access.",
+      price: 2750000,
+      location: "Crystal Lake",
+    },
   ];
 
 await prisma.property.createMany({data: properties})

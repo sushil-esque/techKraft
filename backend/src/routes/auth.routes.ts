@@ -14,7 +14,6 @@ router.post(
     loginSchema.parse(req.body);
     next();
   },
-  passport.authenticate("local"),
   authController.signIn,
 );
 
