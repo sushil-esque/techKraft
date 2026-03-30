@@ -2,6 +2,9 @@
 
 A full-stack web application built as part of the TechKraft assignment. Users can sign up, log in, browse properties, and manage their favorites list.
 
+## Live Demo
+https://tech-kraft-sushil.vercel.app/
+
 ## Tech Stack
 
 | Layer      | Technology                                                     |
