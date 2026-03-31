@@ -1,12 +1,9 @@
-import { toast } from "sonner";
 import axios, { AxiosError, type AxiosResponse } from "axios";
-
+import { queryClient } from "../main";
 export const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL ,
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   withCredentials: true,
 });
-
-  
 
 function axiosFulfilled(e: AxiosResponse) {
   return e;
@@ -15,11 +12,8 @@ function axiosRejected(e: AxiosError) {
   if (e.response) {
     if (e.response.status === 401) {
       console.log(e.response.data);
-      
-      if (sessionStorage.getItem("isLoggedIn") === "true") {
-        toast.error("Session expired. Please login again");
-        sessionStorage.removeItem("isLoggedIn");
-      }
+      queryClient.setQueryData(["user"], null);
+
       return Promise.reject(e.response.data);
     }
     if (e.response.status === 404) {
